@@ -13,6 +13,7 @@ const jwt = require("jsonwebtoken");
 
 const indexRouter = require("./src/routes/index");
 const authRouter = require("./src/routes/accountRoute");
+const userRouter = require("./src/routes/AccountManage");
 const passport = require("passport");
 dotenv.config();
 
@@ -49,6 +50,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //app.use("/", indexRouter);
 app.use("/auth", authRouter);
+app.use("/users", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
