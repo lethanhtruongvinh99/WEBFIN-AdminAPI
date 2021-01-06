@@ -3,20 +3,34 @@ const Schema = mongoose.Schema;
 const roomSchema = new Schema({
   //at client, we should save the player B, when click Start game in Room, will create a game.
   name: { type: String, require: true, trim: true },
-  gameSize: { type: Number, require: true },
+  gameSize: { type: Number, require: true, default: 20 },
   //Room is only have 2 state is true or false, and only set 1 times.
+  password: { type: String, trim: true, default: "" },
+  timePerTurn: { type: Number, default: 15 },
   isAvailable: { type: Boolean, require: true },
   createdBy: {
-    type: Schema.Types.ObjectId,
-    ref: "Account",
-    require: true,
+    _id: {
+      type: Schema.Types.ObjectId,
+      ref: "Account",
+    },
+    username: String,
+  },
+  playerB: {
+    id: {
+      type: Schema.Types.ObjectId,
+      ref: "Account",
+    },
+    username: String,
   },
   members: [
     //all member joined that room. after that set Player A and B for games
     //not required to initialize
     {
-      type: Schema.Types.ObjectId,
-      ref: "Account",
+      id: {
+        type: Schema.Types.ObjectId,
+        ref: "Account",
+      },
+      username: String,
     },
   ],
   games: [
@@ -39,8 +53,8 @@ const roomSchema = new Schema({
       isCreatedAt: Date,
     },
   ],
-  isDeleted: {type: Boolean, default: false},
-  isCreatedAt: {type: Date, default: new Date()},
+  isDeleted: { type: Boolean, default: false },
+  isCreatedAt: { type: Date, default: new Date() },
   isUpdatedAt: Date,
 });
 
