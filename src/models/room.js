@@ -22,6 +22,13 @@ const roomSchema = new Schema({
     },
     username: String,
   },
+  winner: {
+    _id: {
+      type: Schema.Types.ObjectId,
+      ref: "Account",
+    },
+    username: String,
+  },
   members: [
     //all member joined that room. after that set Player A and B for games
     //not required to initialize

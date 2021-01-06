@@ -13,7 +13,7 @@ const router = express.Router();
 router.get("/", async (req, res) =>
 {
   //get All User
-  passport.authorize("jwt", { session: false }, async (err, user, info) =>
+  passport.authenticate("jwt", { session: false }, async (err, user, info) =>
   {
     if (err)
     {
@@ -31,7 +31,7 @@ router.get("/", async (req, res) =>
         res.status(200).json({ accounts: listUser.accounts });
       } else
       {
-        res.status(200).json({ message: listUser });
+        res.status(400).json({ message: listUser });
       }
     }
   })(req, res);
@@ -56,10 +56,10 @@ router.post("/deactivate", async (req, res) =>
       const result = await deactivateAccount(targetAccountId);
       if (result.status)
       {
-        return res.json({ auth: true, message: "Successfully!" });
+        return res.status(200).json({ auth: true, message: "Successfully!" });
       } else
       {
-        return res.json({ auth: false, message: "Error" });
+        return res.status(400).json({ auth: false, message: "Error" });
       }
     }
   })(req, res);
@@ -83,10 +83,10 @@ router.post("/activate", async (req, res) =>
       const result = await activateAccount(targetAccountId);
       if (result.status)
       {
-        return res.json({ auth: true, message: "Successfully!" });
+        return res.status(200).json({ auth: true, message: "Successfully!" });
       } else
       {
-        return res.json({ auth: false, message: "Error" });
+        return res.status(400).json({ auth: false, message: "Error" });
       }
     }
   })(req, res);
