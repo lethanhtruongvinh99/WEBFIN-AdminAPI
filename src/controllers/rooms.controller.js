@@ -11,7 +11,9 @@ const getRoomDetail = async (id) => {
 
 const getRoomByUserId = async (id) => {
   try {
-    const result = await Room.find({ "createdBy._id": id });
+    const created = await Room.find({ "createdBy._id": id });
+    const player = await Room.find({"playerB._id": id});
+    const result = [...created, ...player]
     return { status: true, data: result };
   } catch (err) {
     return { status: false, data: err };

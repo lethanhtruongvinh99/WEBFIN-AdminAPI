@@ -16,7 +16,7 @@ const roomSchema = new Schema({
     username: String,
   },
   playerB: {
-    id: {
+    _id: {
       type: Schema.Types.ObjectId,
       ref: "Account",
     },
@@ -29,6 +29,7 @@ const roomSchema = new Schema({
     },
     username: String,
   },
+  isEnd: { type: Boolean, default: false },
   members: [
     //all member joined that room. after that set Player A and B for games
     //not required to initialize

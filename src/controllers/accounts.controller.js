@@ -21,7 +21,7 @@ const getUserById = async (userId) => {
 const deactivateAccount = async (accountId) => {
   try {
     const findAccount = await Account.findOne({ _id: accountId });
-    findAccount.isDeleted = true;
+    findAccount.isActivate = false;
     Account.findOneAndUpdate({ _id: accountId }, findAccount, (err) => {
       if (err) {
         console.log(err);
@@ -37,7 +37,7 @@ const deactivateAccount = async (accountId) => {
 const activateAccount = async (accountId) => {
   try {
     const findAccount = await Account.findOne({ _id: accountId });
-    findAccount.isDeleted = false;
+    findAccount.isActivate = true;
     Account.findOneAndUpdate({ _id: accountId }, findAccount, (err) => {
       if (err) {
         console.log(err);

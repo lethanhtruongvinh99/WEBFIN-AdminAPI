@@ -39,8 +39,9 @@ router.get("/", async (req, res) =>
 
 router.post("/deactivate", async (req, res) =>
 {
+  console.log(req.body.accountId);
   //body is accountId.
-  passport.authorize("jwt", { session: false }, async (err, user, info) =>
+  passport.authenticate("jwt", { session: false }, async (err, user, info) =>
   {
     if (err)
     {
@@ -56,6 +57,7 @@ router.post("/deactivate", async (req, res) =>
       const result = await deactivateAccount(targetAccountId);
       if (result.status)
       {
+        // console.log(result.account.isActivate);
         return res.status(200).json({ auth: true, message: "Successfully!" });
       } else
       {
@@ -67,7 +69,8 @@ router.post("/deactivate", async (req, res) =>
 
 router.post("/activate", async (req, res) =>
 {
-  passport.authorize("jwt", { session: false }, async (err, user, info) =>
+  // console.log(req.body.accountId);
+  passport.authenticate("jwt", { session: false }, async (err, user, info) =>
   {
     if (err)
     {
@@ -81,8 +84,10 @@ router.post("/activate", async (req, res) =>
     {
       const targetAccountId = req.body.accountId;
       const result = await activateAccount(targetAccountId);
+      // console.log(result);
       if (result.status)
       {
+        // console.log(result.account.isActivate)
         return res.status(200).json({ auth: true, message: "Successfully!" });
       } else
       {
@@ -94,6 +99,7 @@ router.post("/activate", async (req, res) =>
 
 router.post("/profile", async (req, res) =>
 {
+  // console.log(req.body.accountId);
   passport.authorize("jwt", { session: false }, async (err, user, info) =>
   {
     if (err)
@@ -108,6 +114,7 @@ router.post("/profile", async (req, res) =>
     {
       const accountId = req.body.accountId;
       const accountProfile = await getUserById(accountId);
+      // console.log(accountProfile);
       if (accountProfile.status)
       {
         return res.json({ auth: true, account: accountProfile.account });

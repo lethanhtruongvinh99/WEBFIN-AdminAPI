@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
       if (listRoom.status) {
         return res.status(200).json({data: listRoom.data});
       } else {
-        return res.status(200).json({data: listRoom.data});
+        return res.status(400).json({data: listRoom.data});
       }
     }
   })(req, res);
